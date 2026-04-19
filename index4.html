@@ -3,214 +3,220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus | The Future is Now</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <title>Digital Business Card</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
+        /* Smooth Scrolling Enable */
+        html {
+            scroll-behavior: smooth;
+        }
+
         :root {
-            --primary: #6366f1;
-            --dark: #0f172a;
-            --glass: rgba(255, 255, 255, 0.1);
-            --border: rgba(255, 255, 255, 0.1);
-            --bg: #020617; /* Deep Space Blue */
+            --primary-color: #2563eb;
+            --secondary-color: #1e293b;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #334155;
+            --nav-bg: rgba(255, 255, 255, 0.85);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: var(--bg); color: #f8fafc; display: flex; justify-content: center; }
 
-        .app-container {
-            width: 100%; max-width: 480px; background: var(--bg); min-height: 100vh;
-            position: relative; padding-bottom: 120px;
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            padding: 20px 20px 80px; /* Extra bottom padding for nav space */
         }
 
-        /* --- VISUAL ELEMENTS --- */
-        .hero-image {
-            width: 100%; height: 300px;
-            background: url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=800') center/cover;
-            position: relative; border-radius: 0 0 40px 40px;
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .hero-overlay {
-            position: absolute; inset: 0;
-            background: linear-gradient(to bottom, transparent, var(--bg));
-        }
-
-        .profile-section { text-align: center; margin-top: -60px; position: relative; z-index: 10; padding: 0 20px; }
-        .avatar {
-            width: 120px; height: 120px; border-radius: 40px;
-            border: 4px solid var(--bg); object-fit: cover;
-            box-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
-        }
-
-        /* --- BENTO GRID LINKS --- */
-        .bento-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 25px 20px;
-        }
-
-        .bento-item {
-            background: rgba(30, 41, 59, 0.5);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 20px;
-            text-decoration: none;
-            color: white;
-            transition: all 0.3s ease;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 10px;
+        /* Fixed Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            background: var(--nav-bg);
             backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            border-radius: 50px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+            z-index: 1000;
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .bento-item:active { transform: scale(0.95); background: var(--primary); }
-        .bento-item i { font-size: 1.8rem; }
+        .bottom-nav a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-size: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .bottom-nav a:hover, .bottom-nav a:active {
+            color: var(--primary-color);
+        }
+
+        .bottom-nav span {
+            font-size: 0.65rem;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+
+        /* Header Section */
+        .header {
+            text-align: center;
+            padding: 50px 20px;
+            background: linear-gradient(135deg, var(--primary-color), #3b82f6);
+            color: white;
+        }
+
+        .logo {
+            width: 80px; height: 80px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center; justify-content: center;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        /* Standard Section Styling */
+        .section-title { padding: 30px 20px 10px; font-weight: 600; border-top: 1px solid #f1f5f9; margin-top: 10px; }
         
-        /* App Specific Colors */
-        .fb i { color: #1877F2; }
-        .ig i { color: #E4405F; }
-        .li i { color: #0077B5; }
-        .wa i { color: #25D366; }
-        .tg i { color: #0088CC; }
-        .yt i { color: #FF0000; }
-
-        .wide { grid-column: span 2; flex-direction: row; justify-content: space-between; }
-
-        /* --- IMAGES SECTION --- */
-        .image-gallery { display: flex; gap: 10px; padding: 0 20px; overflow-x: auto; scrollbar-width: none; }
-        .gallery-img { width: 140px; height: 180px; border-radius: 20px; object-fit: cover; flex-shrink: 0; }
-
-        /* --- NAVIGATION --- */
-        .nav-dock {
-            position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
-            width: 85%; max-width: 380px; background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px); display: flex; padding: 12px; border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.1); z-index: 1000; justify-content: space-around;
+        .slider-container {
+            overflow-x: auto;
+            display: flex;
+            padding: 0 20px 20px;
+            gap: 15px;
         }
 
-        .nav-item { color: #64748b; text-decoration: none; font-size: 0.7rem; position: relative; z-index: 5; text-align: center; }
-        .nav-item i { font-size: 1.4rem; display: block; margin-bottom: 4px; transition: 0.3s; }
-        .nav-item.active { color: white; }
-        .nav-item.active i { transform: translateY(-5px); color: var(--primary); }
-
-        /* --- PDF TEMP --- */
-        #pdf-hide { position: absolute; left: -9999px; }
-        .pdf-card { 
-            width: 600px; height: 350px; background: #0f172a; color: white; padding: 40px; 
-            border-radius: 20px; display: flex; flex-direction: column; justify-content: space-between;
+        .service-card {
+            min-width: 220px;
+            background: #f1f5f9;
+            padding: 20px;
+            border-radius: 12px;
         }
+
+        /* Payment Tabs */
+        .tabs { display: flex; padding: 0 20px; gap: 10px; }
+        .tab-btn {
+            flex: 1; padding: 10px; border: none;
+            background: #e2e8f0; border-radius: 8px;
+            cursor: pointer; font-weight: 600;
+        }
+        .tab-btn.active { background: var(--primary-color); color: white; }
+        .tab-content { padding: 20px; display: none; text-align: center; }
+        .tab-content.active { display: block; }
+
+        /* Form & Map */
+        .contact-form { padding: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-submit { width: 100%; padding: 12px; background: var(--primary-color); color: white; border: none; border-radius: 8px; cursor: pointer; }
+        .map-container { padding: 20px; }
+        iframe { width: 100%; height: 200px; border-radius: 12px; border: none; }
+        .btn-direction { display: block; text-align: center; background: var(--secondary-color); color: white; text-decoration: none; padding: 12px; margin-top: 10px; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <div class="hero-image">
-        <div class="hero-overlay"></div>
-    </div>
+<nav class="bottom-nav">
+    <a href="#home"><i class="fas fa-home"></i><span>Home</span></a>
+    <a href="#services"><i class="fas fa-th-large"></i><span>Services</span></a>
+    <a href="#payment"><i class="fas fa-wallet"></i><span>Pay</span></a>
+    <a href="#contact"><i class="fas fa-paper-plane"></i><span>Contact</span></a>
+</nav>
 
-    <div class="profile-section">
-        <img src="https://i.ibb.co/QFqg9t90/1774726639870-jpg-1.jpg" class="avatar" alt="User">
-        <h1 style="margin-top:15px; font-weight: 800; font-size: 1.8rem;">Future Nexus</h1>
-        <p style="opacity: 0.6; font-size: 0.9rem;">The future is a baby. Let's grow it.</p>
-    </div>
+<div class="container">
+    <header class="header" id="home">
+        <div class="logo">LOGO</div>
+        <h1>Company Name</h1>
+        <p>Creative Digital Solutions Provider</p>
+    </header>
 
-    <div style="padding: 20px 20px 0;">
-        <button id="pdfBtn" onclick="savePDF()" class="bento-item wide" style="background: var(--primary); cursor: pointer; border: none;">
-            <span><i class="fa-solid fa-file-pdf"></i> Save Digital Card (PDF)</span>
-            <i class="fa-solid fa-chevron-right" style="font-size: 1rem;"></i>
-        </button>
-    </div>
-
-    <div class="bento-grid">
-        <a href="#" class="bento-item fb">
-            <i class="fa-brands fa-facebook"></i>
-            <span>Facebook</span>
-        </a>
-        <a href="#" class="bento-item ig">
-            <i class="fa-brands fa-instagram"></i>
-            <span>Instagram</span>
-        </a>
-        <a href="#" class="bento-item li">
-            <i class="fa-brands fa-linkedin"></i>
-            <span>LinkedIn</span>
-        </a>
-        <a href="#" class="bento-item wa">
-            <i class="fa-brands fa-whatsapp"></i>
-            <span>WhatsApp</span>
-        </a>
-        <a href="#" class="bento-item tg">
-            <i class="fa-brands fa-telegram"></i>
-            <span>Telegram</span>
-        </a>
-        <a href="#" class="bento-item yt">
-            <i class="fa-brands fa-youtube"></i>
-            <span>YouTube</span>
-        </a>
-        <a href="https://yourlink.com" class="bento-item wide" style="background: rgba(99, 102, 241, 0.1);">
-            <i class="fa-solid fa-link" style="color: var(--primary);"></i>
-            <span style="flex-grow: 1; margin-left: 15px;">Visit Official Website</span>
-            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 0.8rem; opacity: 0.5;"></i>
-        </a>
-    </div>
-
-    <div class="section-title" style="padding: 10px 25px; font-weight: 800; opacity: 0.8;">INSIGHTS</div>
-    <div class="image-gallery">
-        <img src="https://images.unsplash.com/photo-1614850523296-d8c1af93d400?q=80&w=300" class="gallery-img">
-        <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=300" class="gallery-img">
-        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=300" class="gallery-img">
-    </div>
-
-    <nav class="nav-dock">
-        <a href="#home" class="nav-item active"><i class="fa-solid fa-house-user"></i>Home</a>
-        <a href="#social" class="nav-item"><i class="fa-solid fa-share-nodes"></i>Social</a>
-        <a href="#gallery" class="nav-item"><i class="fa-solid fa-images"></i>Media</a>
-        <a href="#more" class="nav-item"><i class="fa-solid fa-ellipsis"></i>More</a>
-    </nav>
-
-    <div id="pdf-hide">
-        <div class="pdf-card" id="pdf-content">
-            <div>
-                <h1 style="font-size: 35px;">Future Nexus</h1>
-                <p style="color: #6366f1; font-size: 20px;">Digital Identity Node</p>
-            </div>
-            <div style="display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
-                <p>nexus.future.io</p>
-                <p>ID: 9988-7766-5544</p>
-            </div>
+    <h3 class="section-title" id="services">Our Services</h3>
+    <div class="slider-container">
+        <div class="service-card">
+            <h4>Web Design</h4>
+            <p>Clean and modern UI/UX designs.</p>
         </div>
+        <div class="service-card">
+            <h4>Digital Marketing</h4>
+            <p>Grow your brand visibility online.</p>
+        </div>
+        <div class="service-card">
+            <h4>Consulting</h4>
+            <p>Expert business strategy sessions.</p>
+        </div>
+    </div>
+
+    <h3 class="section-title" id="payment">Payment Options</h3>
+    <div class="tabs">
+        <button class="tab-btn active" onclick="openTab(event, 'qr')">QR Code</button>
+        <button class="tab-btn" onclick="openTab(event, 'bank')">Bank Info</button>
+    </div>
+
+    <div id="qr" class="tab-content active">
+        <div style="background: #eee; padding: 20px; display: inline-block; border-radius: 10px;">
+            <i class="fas fa-qrcode fa-5x"></i>
+        </div>
+        <p style="margin-top:10px; font-size: 0.9rem;">Scan to pay instantly</p>
+    </div>
+
+    <div id="bank" class="tab-content">
+        <p><strong>Bank:</strong> Global Bank Corp</p>
+        <p><strong>A/C:</strong> 1234 5678 9012</p>
+        <p><strong>IFSC:</strong> GBC000123</p>
+    </div>
+
+    <h3 class="section-title" id="contact">Get In Touch</h3>
+    <form class="contact-form">
+        <input type="text" placeholder="Your Name" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="How can we help?" rows="3"></textarea>
+        <button type="submit" class="btn-submit">Send Message</button>
+    </form>
+
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509364!2d144.95373531531615!3d-37.81627973597854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4c2b349649%3A0xb6899234e561db11!2sEnvato!5e0!3m2!1sen!2sau!4v1611811111111!5m2!1sen!2sau" allowfullscreen="" loading="lazy"></iframe>
+        <a href="https://goo.gl/maps/example" class="btn-direction">Open in Google Maps</a>
     </div>
 </div>
 
 <script>
-    async function savePDF() {
-        const btn = document.getElementById('pdfBtn');
-        const element = document.getElementById('pdf-content');
-        btn.innerHTML = '<span><i class="fa-solid fa-circle-notch fa-spin"></i> Coding PDF...</span>';
-
-        const opt = {
-            margin: 0,
-            filename: 'Future-Nexus-Card.pdf',
-            html2canvas: { scale: 3, useCORS: true },
-            jsPDF: { unit: 'px', format: [600, 350], orientation: 'landscape' }
-        };
-
-        try {
-            await html2pdf().set(opt).from(element).save();
-            btn.innerHTML = '<span><i class="fa-solid fa-check"></i> PDF Saved</span>';
-            btn.style.background = '#10b981';
-        } catch (e) {
-            btn.innerHTML = '<span>Error</span>';
+    // Tab switching logic
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
         }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
     }
-
-    // Nav Switcher
-    document.querySelectorAll('.nav-item').forEach(item => {
-        item.addEventListener('click', function() {
-            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
 </script>
 
 </body>
